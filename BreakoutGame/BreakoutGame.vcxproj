@@ -149,14 +149,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BallObject.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameLevel.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BallObject.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameLevel.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Shader.cpp" />

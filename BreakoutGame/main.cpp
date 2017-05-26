@@ -32,6 +32,7 @@
 #include "game.h"
 #include "ResourceManager.h"
 
+#include <string>
 
 
 
@@ -43,7 +44,20 @@ const GLuint SCREEN_WIDTH = 1920;
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 1080;
 
+// Game Name.
+const char * GAME_NAME = "Breakout";
+
 Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+
+// FPS Counter Variables.
+double lastTime;
+int nbFrames = 0;
+
+void showFPS(GLFWwindow *pWindow);
+
+#include <iostream>
+#include <sstream>
 
 int main(int argc, char *argv[])
 {
@@ -90,6 +104,13 @@ int main(int argc, char *argv[])
 		lastFrame = currentFrame;
 		glfwPollEvents();
 
+		int fps = ( 1 / ( deltaTime * 100 ) ) * 100; // Rounding down the fps to least hundred? Not ideal, but who cares.
+		// std::cout << fps << std::endl;
+
+		std::string newTitle = GAME_NAME + std::string(" FPS: ") + std::to_string(fps);
+
+		glfwSetWindowTitle(window, newTitle.c_str());
+
 		//deltaTime = 0.001f;
 		// Manage user input
 		Breakout.ProcessInput(deltaTime);
@@ -123,5 +144,27 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 			Breakout.Keys[key] = GL_TRUE;
 		else if (action == GLFW_RELEASE)
 			Breakout.Keys[key] = GL_FALSE;
+	}
+}
+
+using namespace std;
+void showFPS(GLFWwindow *pWindow)
+{
+	// Measure speed
+	double currentTime = glfwGetTime();
+	double delta = currentTime - lastTime;
+	nbFrames++;
+	if (delta >= 1.0) { // If last cout was more than 1 sec ago
+		cout << 1000.0 / double(nbFrames) << endl;
+
+		double fps = double(nbFrames) / delta;
+
+		std::stringstream ss;
+		ss << GAME_NAME << " " << " [" << fps << " FPS]";
+
+		glfwSetWindowTitle(pWindow, ss.str().c_str());
+
+		nbFrames = 0;
+		lastTime = currentTime;
 	}
 }
