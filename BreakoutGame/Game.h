@@ -9,6 +9,7 @@
 #include <vector>
 #include "GameLevel.h"
 #include "BallObject.h"
+#include "ParticleGenerator.h"
 
 // Represents the current state of the game
 enum GameState {
@@ -53,6 +54,7 @@ public:
 	// Player Object
 	GameObject      *Player;
 	BallObject * Ball;
+	ParticleGenerator   *Particles;
 
 	void DoCollisions();
 
